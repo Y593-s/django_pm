@@ -9,4 +9,5 @@ urlpatterns = [
     path('task/delete/<int:pk>/', views.TaskDeleteView.as_view(), name='task_delete'),
     path('project/delete/<int:pk>/', views.ProjectDeleteView.as_view(), name='project_delete'),
 
+
 ]
