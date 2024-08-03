@@ -1,36 +1,63 @@
 {% load i18n %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-success bg-gradient p-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'Project_List' %}">{% trans 'Project Management' %}</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="{% url 'Project_list'%}">{% trans 'Project Management'%}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'Project_List' %}">{% trans 'Home' %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'Project_list'%}"
+            >{% trans 'Home'%}</a
+          >
         </li>
       </ul>
-        <form method="GET" action="{% url 'Project_list' %}" class="d-flex">
-            <div class="Input-group">
-                <input
-                    type="text"
-                    name="q"
-                    class="form-control"
-                    placeholder="{% trans 'Search' %}"
-                    />
-                <button class="btn btn-outline-light" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav mb-2 mb-lg-0 me-3">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ user.username }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">{% trans 'Profile'%}</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">{% trans 'Logout'%}</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form method="get" action="{% url 'Project_list'%}" class="d-flex">
+        <div class="input-group">
+          <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="{% trans 'Search'%}"
+            value="{{ request.GET.q}}"
+          />
+          <button class="btn btn-outline-light" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
+      {% else %}
+      <a class="btn btn-outline-light" href="{% url 'login'%}"> {% trans 'Login'%} </a>
+      {% endif %}
     </div>
   </div>
 </nav>

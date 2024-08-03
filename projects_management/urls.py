@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.urls import path, include
 import debug_toolbar
+from accounts.forms import UserLoginForm
 
 import accounts
 
@@ -26,5 +27,8 @@ urlpatterns = [
     path('', include('projects.urls')),
     path('admin/', admin.site.urls),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('include/', include(projects.urls)),
     path('accounts/', include(accounts.urls)),
+    path('', include('django.contrib.auth.urls')),
+
 ]
